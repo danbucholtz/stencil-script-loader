@@ -5,16 +5,15 @@ import { Component, Event, EventEmitter, Prop } from '@stencil/core';
 })
 export class ScriptLoader {
 
-  @Prop() src: string;
-  @Event() loaded: EventEmitter;
+  @Prop() source: string;
+  @Event() dbScriptLoaded: EventEmitter;
 
-  componentWillLoad() {
+  componentDidLoad() {
     const scriptTag = document.createElement('script');
-    scriptTag.setAttribute('src', this.src);
+    scriptTag.setAttribute('src', this.source);
     scriptTag.onload = (event: UIEvent) => {
-      this.loaded.emit(event);
+      this.dbScriptLoaded.emit(event);
     }
-    console.log('appending!');
     document.head.appendChild(scriptTag);
   }
 
